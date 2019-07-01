@@ -6,7 +6,9 @@
   "author": "Douglas Porto <douglasalexandre7@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "mcreate": "yarn sequelize migration:create",
+    "migrate": "yarn sequelize db:migrate"
   },
   "dependencies": {
     "express": "^4.17.1",
