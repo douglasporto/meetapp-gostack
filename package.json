@@ -11,6 +11,7 @@
     "migrate": "yarn sequelize db:migrate"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",
