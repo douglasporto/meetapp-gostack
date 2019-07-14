@@ -15,7 +15,11 @@ Api for a meeting system about tech and development
 
 ### Docker init
 
+#### Postgree
 `docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
+
+#### MongoDb
+`docker run --name mongo_meetapp -p 27017:27017 -d -t mongo`
 
 ### Commands important
 
