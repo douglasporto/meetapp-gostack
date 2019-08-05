@@ -8,11 +8,15 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "mcreate": "yarn sequelize migration:create",
-    "migrate": "yarn sequelize db:migrate"
+    "migrate": "yarn sequelize db:migrate",
+    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest --sourceMap=false --verbose",
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.0.0-beta.2",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
@@ -23,14 +27,21 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@types/jest": "^24.0.17",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "sequelize-cli": "^5.5.0",
-    "sucrase": "^3.10.1"
+    "sqlite3": "^4.0.9",
+    "sucrase": "^3.10.1",
+    "supertest": "^4.0.2"
   }
 }
