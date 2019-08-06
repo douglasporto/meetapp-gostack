@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test -t Users
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/douglasporto/Library/Android/sdk/tools:/Users/douglasporto/Library/Android/sdk/platform-tools
@@ -5147,7 +5147,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c NODE_ENV=test jest --sourceMap=false --verbose -t Users
+  Arguments: -c NODE_ENV=test jest --sourceMap=false --verbose
   Directory: /Users/douglasporto/Documents/projetos/bootcamp/meetup_api/api
   Output:
   

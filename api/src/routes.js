@@ -7,7 +7,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 
 /* MIDDLEWARES */
-import authMiddleware from './app/middlewares/auth';
+import { authMiddleware, authCreateSession } from './app/middlewares/auth';
 import { createUser, updateUser } from './app/middlewares/UserMiddlewares';
 
 /* CONTROLLERS */
@@ -20,7 +20,7 @@ const routes = new Router();
 const uploads = multer(multerConfig);
 
 routes.post('/users', createUser, UserController.store);
-routes.post('/sessions', SessionController.store);
+routes.post('/sessions', authCreateSession, SessionController.store);
 
 routes.use(authMiddleware);
 routes.put('/users', updateUser, UserController.update);

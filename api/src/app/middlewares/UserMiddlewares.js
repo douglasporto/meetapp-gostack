@@ -8,8 +8,8 @@ export const createUser = async (req, res, next) => {
       .required('e-mail is a required field'),
     password: Yup.string()
       .required('password is a required field')
-      .min(6)
-      .max(10),
+      .min(6, 'Password must be 6-10 characters')
+      .max(10, 'Password must be 6-10 characters'),
   });
 
   try {
@@ -26,9 +26,12 @@ export const updateUser = async (req, res, next) => {
     email: Yup.string()
       .email('E-mail is invalid')
       .required('e-mail is a required field'),
-    oldPassword: Yup.string().min(6, 'Password must be at least 6 characters'),
+    oldPassword: Yup.string()
+      .min(6, 'Password must be 6-10 characters')
+      .max(10, 'Password must be 6-10 characters'),
     password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
+      .min(6, 'Password must be 6-10 characters')
+      .max(10, 'Password must be 6-10 characters')
       .when('oldPassword', (oldPassword, field) =>
         oldPassword ? field.required('You must to send the Password') : field
       ),
