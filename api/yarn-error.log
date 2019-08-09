@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js test
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js remove -D date-fns-timezone
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/douglasporto/Library/Android/sdk/tools:/Users/douglasporto/Library/Android/sdk/platform-tools
@@ -45,6 +45,7 @@ npm manifest:
     "devDependencies": {
       "@sucrase/jest-plugin": "^2.0.0",
       "@types/jest": "^24.0.17",
+      "date-fns-timezone": "^0.1.4",
       "eslint": "^5.16.0",
       "eslint-config-airbnb-base": "^13.1.0",
       "eslint-config-prettier": "^6.0.0",
@@ -958,6 +959,10 @@ Lockfile:
     dependencies:
       delayed-stream "~1.0.0"
   
+  commander@2.19.0:
+    version "2.19.0"
+    resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
+  
   commander@^2.19.0, commander@~2.20.0:
     version "2.20.0"
     resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
@@ -1103,6 +1108,17 @@ Lockfile:
       abab "^2.0.0"
       whatwg-mimetype "^2.2.0"
       whatwg-url "^7.0.0"
+  
+  date-fns-timezone@^0.1.4:
+    version "0.1.4"
+    resolved "https://registry.yarnpkg.com/date-fns-timezone/-/date-fns-timezone-0.1.4.tgz#bc9fac78aae9a7bdb847f3ab4ce6d14f9fb9a55f"
+    dependencies:
+      date-fns "^1.29.0"
+      timezone-support "^1.5.5"
+  
+  date-fns@^1.29.0:
+    version "1.30.1"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   
   date-fns@^2.0.0-beta.2:
     version "2.0.0-beta.2"
@@ -4684,6 +4700,12 @@ Lockfile:
       es5-ext "~0.10.46"
       next-tick "1"
   
+  timezone-support@^1.5.5:
+    version "1.8.1"
+    resolved "https://registry.yarnpkg.com/timezone-support/-/timezone-support-1.8.1.tgz#0a8c04d0614be6fccdd2280aaad5072fa5d31e5f"
+    dependencies:
+      commander "2.19.0"
+  
   tmp@^0.0.33:
     version "0.0.33"
     resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -5144,16 +5166,14 @@ Lockfile:
       toposort "^2.0.2"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c NODE_ENV=test jest --sourceMap=false --verbose
-  Directory: /Users/douglasporto/Documents/projetos/bootcamp/meetup_api/api
-  Output:
-  
-      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:30281:17)
-      at ChildProcess.emit (events.js:189:13)
-      at maybeClose (internal/child_process.js:970:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:259:5)
+  Error: Not enough arguments, expected at least 1.
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:60368:13)
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:116:14
+      at new Promise (<anonymous>)
+      at new F (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:23451:28)
+      at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:95:12)
+      at Object.run (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:60486:17)
+      at run (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:89113:20)

@@ -29,6 +29,7 @@
   "devDependencies": {
     "@sucrase/jest-plugin": "^2.0.0",
     "@types/jest": "^24.0.17",
+    "date-fns-tz": "^1.0.7",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^6.0.0",

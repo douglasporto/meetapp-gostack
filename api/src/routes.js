@@ -9,6 +9,7 @@ import SessionController from './app/controllers/SessionController';
 /* MIDDLEWARES */
 import { authMiddleware, authCreateSession } from './app/middlewares/auth';
 import { createUser, updateUser } from './app/middlewares/UserMiddlewares';
+import { createAppointment } from './app/middlewares/AppointmentMiddlewares';
 
 /* CONTROLLERS */
 import FileController from './app/controllers/FileController';
@@ -25,8 +26,8 @@ routes.post('/sessions', authCreateSession, SessionController.store);
 routes.use(authMiddleware);
 routes.put('/users', updateUser, UserController.update);
 
+routes.post('/appointments', createAppointment, AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
-routes.post('/appointments', AppointmentController.store);
 routes.delete('/appointments/:id', AppointmentController.destroy);
 
 routes.get('/schedule', ScheduleController.index);
