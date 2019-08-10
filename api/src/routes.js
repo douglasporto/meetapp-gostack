@@ -5,9 +5,14 @@ import multerConfig from './config/multer';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
-import authMiddleware from './app/middlewares/auth';
+
+/* MIDDLEWARES */
+import { authMiddleware, authCreateSession } from './app/middlewares/auth';
+import { createUser, updateUser } from './app/middlewares/UserMiddlewares';
+import { createAppointment } from './app/middlewares/AppointmentMiddlewares';
+
+/* CONTROLLERS */
 import FileController from './app/controllers/FileController';
-import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationsController from './app/controllers/NotificationsController';
@@ -15,15 +20,14 @@ import NotificationsController from './app/controllers/NotificationsController';
 const routes = new Router();
 const uploads = multer(multerConfig);
 
-routes.post('/users', UserController.store);
-routes.post('/sessions', SessionController.store);
+routes.post('/users', createUser, UserController.store);
+routes.post('/sessions', authCreateSession, SessionController.store);
 
 routes.use(authMiddleware);
-routes.put('/users', UserController.update);
-routes.get('/providers', ProviderController.index);
+routes.put('/users', updateUser, UserController.update);
 
+routes.post('/appointments', createAppointment, AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
-routes.post('/appointments', AppointmentController.store);
 routes.delete('/appointments/:id', AppointmentController.destroy);
 
 routes.get('/schedule', ScheduleController.index);
