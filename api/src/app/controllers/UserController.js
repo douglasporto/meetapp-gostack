@@ -41,10 +41,10 @@ class UserController {
     if (avatar_id) {
       const image = await File.findByPk(avatar_id);
       if (!image) return res.status(400).json({ error: 'Avatar not found' });
-      // if (image.type !== 'avatar')
-      //   return res
-      //     .status(400)
-      //     .json({ error: 'Your avatar must be a profile picture' });
+      if (image.type !== 'avatar')
+        return res
+          .status(400)
+          .json({ error: 'Your avatar must be a profile picture' });
     }
 
     if (oldPassword && !(await user.checkPassword(oldPassword))) {

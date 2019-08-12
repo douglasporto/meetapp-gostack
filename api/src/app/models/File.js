@@ -6,6 +6,7 @@ class File extends Model {
       {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
+        type: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
