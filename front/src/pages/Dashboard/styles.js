@@ -1,17 +1,54 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
+  max-width: 800px;
+  padding: 50px 40px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  color: #fff;
   header {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    button {
+      align-items: center;
+      background: #f94d6a;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      display: flex;
+      font-size: 14px;
+      font-weight: bold;
+      height: 44px;
+      justify-content: space-between;
+      margin: 5px 0 0;
+      padding: 0 20px;
+      transition: background 0.2s;
+      svg {
+        margin-right: 10px;
+      }
+      &:hover {
+        background: ${darken(0.03, '#F94D6A')};
+      }
+    }
+    strong {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+  footer {
     align-self: center;
     align-items: center;
+    display: flex;
+    margin-top: 30px;
     button {
-      border: 0;
       background: none;
+      border: 0;
     }
     strong {
       color: #fff;
@@ -20,27 +57,48 @@ export const Container = styled.div`
     }
   }
   ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
-export const Time = styled.li`
-  padding: 20px;
-  border-radius: 4px;
-  background: #fff;
-  opacity: ${props => (props.past ? 0.6 : 1)};
-  strong {
-    display: block;
-    color: ${props => (props.available ? '#999' : '#7159c1')};
-    font-size: 20px;
-    font-weight: normal;
+export const MeetappCard = styled.div`
+  & + div {
+    margin-top: 10px;
   }
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  border-radius: 5px;
+  a {
+    align-content: center;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    strong {
+      font-size: 18px;
+    }
+    strong,
+    span {
+      width: 70%;
+    }
+    time {
+      font-size: 12px;
+    }
+  }
+`;
+export const NoMeetapps = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding-bottom: 20px;
   span {
-    display: block;
-    margin-top: 3px;
-    color: ${props => (props.available ? '#999' : '#666')};
+    font-size: 18px;
+    font-stretch: bold;
+    margin-top: 15px;
   }
 `;
