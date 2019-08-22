@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { isBefore, parseISO } from 'date-fns';
+import { isBefore, parseISO, startOfMonth, endOfMonth } from 'date-fns';
 import Meetapp from '../models/Meetapp';
 import File from '../models/File';
 import User from '../models/User';
@@ -7,8 +7,16 @@ import Notification from '../schemas/Notification';
 
 class MeetappController {
   async index(req, res) {
+    const { date } = req.query;
+    const parsedDate = parseISO(date);
+    const startMonth = startOfMonth(parsedDate);
+    const endMonth = endOfMonth(parsedDate);
     const meetapps = await Meetapp.findAll({
-      where: { owner_id: req.userId },
+      where: {
+        date: {
+          [Op.between]: [startMonth, endMonth],
+        },
+      },
       include: [
         {
           model: File,
