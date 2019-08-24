@@ -32,11 +32,12 @@ class MeetappController {
   async store(req, res) {
     const { title, description, location, date, banner_id } = req.body;
     /* VERIFYING THE BANNER */
-    const image = await File.findByPk(banner_id);
-    if (!image) return res.status(400).json({ error: 'Banner not found' });
-    if (image.type !== 'banner')
-      return res.status(400).json({ error: 'Your picture must be a banner' });
-
+    if (banner_id) {
+      const image = await File.findByPk(banner_id);
+      if (!image) return res.status(400).json({ error: 'Banner not found' });
+      if (image.type !== 'banner')
+        return res.status(400).json({ error: 'Your picture must be a banner' });
+    }
     /* VERIFYING PAST DATE */
     if (isBefore(parseISO(date), new Date()))
       return res
