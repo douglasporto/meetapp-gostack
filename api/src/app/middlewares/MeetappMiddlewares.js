@@ -21,9 +21,7 @@ export const createMeetapp = async (req, res, next) => {
     description: description.required('Description can not be empty!'),
     location: location.required('Location can not be empty!'),
     date: date.required('Date can not be empty.'),
-    banner_id: banner_id.required('You must set a banner for the meetup!'),
   });
-
   try {
     await schema.validate(req.body, { abortEarly: true });
     return next();
