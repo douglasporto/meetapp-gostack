@@ -17,14 +17,14 @@ export default function Header() {
           <Link to="/dashboard">
             <img src={Logo} alt="Logo MeetApp" />
           </Link>
-          <Link to="/dashboard">DASHBOARD</Link>
+          <Link to="/my-meetapp">My MeetApp</Link>
         </nav>
         <aside>
           <Notifications />
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link to="/profile">Meu Perfil</Link>
+              <Link to="/profile">My Profile</Link>
             </div>
             <img
               src={
