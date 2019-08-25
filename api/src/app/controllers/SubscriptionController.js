@@ -28,12 +28,12 @@ class SubscriptionController {
     });
 
     try {
-      if (!meetapp) throw new Error('Meetapp does not exists');
-      if (meetapp.past) throw new Error('Meetapp is already finished');
+      if (!meetapp) throw new Error('Meetapp não existe');
+      if (meetapp.past) throw new Error('Meetapp já foi encerrado');
       if (req.userId === meetapp.owner_id)
-        throw new Error(`The meetapp owner can't subscribe`);
+        throw new Error(`O criador do Meetapp não pode se inscrever`);
       if (meetapp.subscribers.includes(req.userId))
-        throw new Error('Already subscribed');
+        throw new Error('Já esta inscrito');
     } catch (e) {
       return res.status(400).json({ error: e.message });
     }
@@ -54,7 +54,7 @@ class SubscriptionController {
 
     if (conflictMeetapps)
       return res.status(400).json({
-        error: 'You are already subscribed to a meetapp at the same time',
+        error: 'Você já tem um Meetapp neste dia e horario',
         conflict: conflictMeetapps,
       });
 
@@ -103,9 +103,8 @@ class SubscriptionController {
     /* SEND NOTIFICATION TO OWNER */
     await Notification.create({
       user: meetapp.owner_id,
-      content: `${user.name} signed up for your Meetapp ${title}!`,
+      content: `${user.name} se inscreveu no Meetapp ${title}!`,
       picture: user.avatar ? user.avatar.url : 'adorable',
-      redirects: `/details/${id}`,
       payload: {
         adorable: user.name,
       },
@@ -114,8 +113,7 @@ class SubscriptionController {
     /* SEND NOTIFICATION TO SUBSCRIBED */
     await Notification.create({
       user: user.id,
-      content: `You are now subscribed into ${title}!`,
-      redirects: `/details/${id}`,
+      content: `Você foi inscrito no ${title}!`,
     });
 
     return res.status(200).json({
@@ -125,6 +123,31 @@ class SubscriptionController {
       date,
       banner,
     });
+  }
+
+  async delete(req, res) {
+    const meetapp = await Meetapp.findOne({ where: { id: req.params.id } });
+
+    if (!meetapp)
+      return res.status(400).json({ error: 'Essa Meetapp não existe!' });
+
+    if (meetapp.past)
+      return res.status(400).json({
+        error: 'Você não pode cancelar inscrição de Meetapp já encerradas!',
+      });
+
+    if (!meetapp.subscribers.includes(req.userId))
+      return res.status(400).json({ error: 'Você não esta inscrito!' });
+
+    const removeFromSubs = subs => {
+      subs.splice(subs.indexOf(req.userId), 1);
+      return subs;
+    };
+    const subscribers = removeFromSubs(meetapp.subscribers);
+
+    await meetapp.update({ subscribers });
+
+    return res.send();
   }
 }
 
