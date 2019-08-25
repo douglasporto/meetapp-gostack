@@ -17,6 +17,7 @@ class MeetappController {
           [Op.between]: [startMonth, endMonth],
         },
       },
+      order: [['date', 'ASC']],
       include: [
         {
           model: File,
