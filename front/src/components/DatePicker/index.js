@@ -34,7 +34,7 @@ export default function SelectDate() {
       date-file={selected}
       minTime={setHours(setMinutes(new Date(), 0), 9)}
       maxTime={setHours(setMinutes(new Date(), 0), 22)}
-      placeholderText="Selecione uma data"
+      placeholderText="Select a date"
       ref={ref}
     />
   );

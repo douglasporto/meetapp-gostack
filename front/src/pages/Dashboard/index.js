@@ -47,9 +47,9 @@ export default function Dashboard() {
     <Container>
       <header>
         <strong>Meetapps</strong>
-        <button type="button" onClick={() => history.push('/new-meetapp')}>
+        <button type="button" onClick={() => history.push('/meetapp-new')}>
           <MdAddCircleOutline />
-          Novo Meetapp
+          New Meetapp
         </button>
       </header>
 

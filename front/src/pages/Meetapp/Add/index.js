@@ -45,9 +45,9 @@ export default function NewMeetapp() {
 
         <button type="submit">
           <MdAddCircleOutline size={20} color="#fff" />
-          Criar um MeetApp!
+          Create MeetApp!
         </button>
-        <Link to="/">Voltar</Link>
+        <Link to="/">Back</Link>
       </Form>
     </Container>
   );
