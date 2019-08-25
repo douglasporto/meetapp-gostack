@@ -208,6 +208,7 @@ class MeetappController {
     );
 
     return res.status(200).json({
+      id,
       title,
       description,
       location,
