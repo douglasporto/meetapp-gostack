@@ -21,22 +21,27 @@ export default function NewMeetapp() {
       const response = await api.post('meetapps', data);
       if (response.status !== 201)
         toast.error(
-          `Erro ao atualizar criar MeetApp, [${response.body.error}]`
+          `An error has occurred, try again, [${response.body.error}]`
         );
       history.push('/');
-      toast.success('MeeApp criado com sucesso');
+      toast.success('MeeApp successfully created');
     } catch (e) {
-      toast.error('Erro ao criar MeetApp, confira seus dados');
+      const error = e.response;
+      toast.error(
+        !!error && error.data.error
+          ? `Ops! ${error.data.error}`
+          : 'An error has occurred, try again'
+      );
     }
   }
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
         <Banner name="banner_id" />
-        <Input name="title" placeholder="Titulo do meetapps" />
-        <Input multiline name="description" placeholder="Descrição" />
+        <Input name="title" placeholder="Title" />
+        <Input multiline name="description" placeholder="Description" />
         <SelectDate selected={date} setSelected={setDate} name="date" />
-        <Input name="location" placeholder="Local" />
+        <Input name="location" placeholder="Location" />
 
         <button type="submit">
           <MdAddCircleOutline size={20} color="#fff" />

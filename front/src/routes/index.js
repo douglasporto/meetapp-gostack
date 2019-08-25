@@ -7,8 +7,9 @@ import SignUp from '../pages/SignUp';
 
 import Profile from '../pages/Profile';
 import Dashboard from '../pages/Dashboard';
-import NewMeetapp from '../pages/NewMeetapp';
-import MeetappDetails from '../pages/Meetapp';
+import NewMeetapp from '../pages/Meetapp/Add';
+import EditMeetapp from '../pages/Meetapp/Edit';
+import MeetappDetails from '../pages/Meetapp/Details';
 
 export default function Routes() {
   return (
@@ -18,7 +19,9 @@ export default function Routes() {
 
       <Route path="/Dashboard" component={Dashboard} isPrivate />
       <Route path="/Profile" component={Profile} isPrivate />
-      <Route path="/new-meetapp" component={NewMeetapp} isPrivate />
+
+      <Route path="/meetapp-new" component={NewMeetapp} isPrivate />
+      <Route path="/meetapp-edit/:id" component={EditMeetapp} isPrivate />
       <Route path="/meetapp-details/:id" component={MeetappDetails} isPrivate />
     </Switch>
   );

@@ -124,7 +124,7 @@ export default function Meetapp({ match }) {
                   <Button
                     type="button"
                     className="btn-blue"
-                    onClick={() => history.push('/new-meetapp')}
+                    onClick={() => history.push(`/meetapp-edit/${meetapp.id}`)}
                   >
                     <MdEdit />
                     Editar
