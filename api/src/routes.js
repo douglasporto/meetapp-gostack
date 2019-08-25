@@ -38,9 +38,9 @@ routes.get('/meetapps/:id', MeetappController.show);
 
 /* SUBSCRIBED */
 routes.post('/subscriptions/:id', SubscriptionController.store);
+routes.delete('/subscriptions/:id', SubscriptionController.delete);
 // routes.get('/subscriptions', SubscriptionController.index);
 // routes.get('/subscriptions/:id', SubscriptionController.show);
-// routes.delete('/subscriptions/:id', SubscriptionController.delete);
 
 // /* NOTIFICATIOS */
 routes.get('/notifications', NotificationsController.index);

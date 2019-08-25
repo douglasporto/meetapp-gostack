@@ -8,9 +8,9 @@ import * as Yup from 'yup';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { Container } from './styles';
+import { Container } from '~/styles/FormMeetapp';
 
-import BannerInput from './BannerInput';
+import Banner from '~/components/Banner';
 import SelectDate from '~/components/DatePicker';
 
 const schema = Yup.object().shape({
@@ -37,7 +37,7 @@ export default function NewMeetapp() {
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
-        <BannerInput name="banner_id" />
+        <Banner name="banner_id" />
         <Input name="title" placeholder="Titulo do meetapps" />
         <Input multiline name="description" placeholder="Descrição" />
         <SelectDate selected={date} setSelected={setDate} name="date" />

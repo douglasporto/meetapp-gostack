@@ -7259,6 +7259,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-loader-spinner@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-3.1.2.tgz#f1c26d12b29f510924653a0b5908c7a04a5ec3e6"
+  dependencies:
+    babel-runtime "^6.26.0"
+    prop-types "^15.6.2"
+
 react-onclickoutside@^6.7.1:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.9.0.tgz#a54bc317ae8cf6131a5d78acea55a11067f37a1f"

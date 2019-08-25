@@ -56,8 +56,13 @@ export default function Dashboard() {
       {meetapps.length > 0 ? (
         <ul>
           {meetapps.map(meetapp => (
-            <MeetappCard key={String(meetapp.id)}>
-              <Link to={`details/${meetapp.id}`}>
+            <MeetappCard
+              key={String(meetapp.id)}
+              style={{
+                opacity: !meetapp.canceled_at && !meetapp.past ? 1 : 0.5,
+              }}
+            >
+              <Link to={`meetapp-details/${meetapp.id}`}>
                 {!meetapp.canceled_at ? (
                   <strong>{meetapp.title}</strong>
                 ) : (
