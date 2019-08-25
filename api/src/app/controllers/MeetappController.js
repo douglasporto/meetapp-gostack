@@ -84,6 +84,13 @@ class MeetappController {
 
     await meetapp.update(req.body);
 
+    await Notification.create(
+      meetapp.subscribers.map(subscriber => ({
+        user: subscriber,
+        content: `${meetapp.title} was updated!`,
+      }))
+    );
+
     const {
       id,
       title,
