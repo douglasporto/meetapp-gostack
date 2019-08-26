@@ -129,14 +129,16 @@ export default function Meetapp({ match }) {
                     <MdEdit />
                     Edit
                   </Button>
-                  <Button
-                    type="button"
-                    className="btn-red"
-                    onClick={handleCancel}
-                  >
-                    <MdDeleteForever />
-                    Cancel
-                  </Button>
+                  {meetapp.cancelable && (
+                    <Button
+                      type="button"
+                      className="btn-red"
+                      onClick={handleCancel}
+                    >
+                      <MdDeleteForever />
+                      Cancel
+                    </Button>
+                  )}
                 </div>
               )}
           </header>

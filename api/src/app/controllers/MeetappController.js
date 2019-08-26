@@ -198,15 +198,11 @@ class MeetappController {
       banner,
     } = meetapp;
 
-    const subscribersAmount = 20;
-
     const subscribers = await User.findAll({
       where: {
-        [Op.or]: meetapp.subscribers
-          .slice(0, subscribersAmount)
-          .map(user_id => ({
-            id: user_id,
-          })),
+        [Op.or]: meetapp.subscribers.map(user_id => ({
+          id: user_id,
+        })),
       },
       attributes: ['id', 'name'],
       include: [
@@ -234,7 +230,6 @@ class MeetappController {
       canceled_at,
       banner,
       subscribers,
-      restOfSubscribers: meetapp.subscribers.length - subscribersAmount,
       subscribed,
     });
   }
