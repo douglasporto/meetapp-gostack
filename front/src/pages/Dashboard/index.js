@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, subMonths, addMonths, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import en from 'date-fns/locale/en-US';
 import {
   MdAddCircleOutline,
   MdChevronLeft,
@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [date, setDate] = useState(new Date());
 
   const dateFormatted = useMemo(
-    () => format(date, "MMMM 'de' yyyy", { locale: pt }),
+    () => format(date, 'yyyy MMMM', { locale: en }),
     [date]
   );
 
@@ -26,8 +26,8 @@ export default function Dashboard() {
       const response = await api.get('meetapps', { params: { date } });
       const data = response.data.map(m => ({
         ...m,
-        formattedDate: format(parseISO(m.date), "d 'de' MMMM ', às' hh'h'mm", {
-          locale: pt,
+        formattedDate: format(parseISO(m.date), "MMMM d', at' hh'h'mm", {
+          locale: en,
         }),
       }));
       setMeetapps(data);
