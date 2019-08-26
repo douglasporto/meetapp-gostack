@@ -42,7 +42,7 @@ export const Container = styled.div`
       margin: 0 0 10px;
       font-weight: bold;
     }
-    button {
+    > button {
       align-self: flex-end;
       align-items: center;
       background: #f94d6a;
