@@ -17,9 +17,15 @@ class UserController {
       content: `Welcome to Meetapp!`,
     });
 
-    return res
-      .status(201)
-      .json({ id, name, email, token: user.generateToken() });
+    return res.status(201).json({
+      user: {
+        id,
+        name,
+        email,
+        avatar: null,
+      },
+      token: user.generateToken(),
+    });
   }
 
   async update(req, res) {
