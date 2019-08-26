@@ -4,7 +4,10 @@ node_modules
 coverage
 
 tmp/*
-!tmp/.gitkeep
+tmp/uploads/*
+
+!tmp/uploads/.gitkeep
+!tmp/uploads/example
 
 dist
 api/__tests__/database.sqlite
