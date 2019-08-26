@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { isBefore, parseISO } from 'date-fns';
+import { isBefore, parseISO, startOfMonth, endOfMonth } from 'date-fns';
 import Meetapp from '../models/Meetapp';
 import File from '../models/File';
 import User from '../models/User';
@@ -7,8 +7,24 @@ import Notification from '../schemas/Notification';
 
 class MeetappController {
   async index(req, res) {
+    let where;
+    if (req.query.where === 'just-my-meetapps') {
+      where = { owner_id: req.userId };
+    } else {
+      const { date } = req.query;
+      const parsedDate = parseISO(date);
+      const startMonth = startOfMonth(parsedDate);
+      const endMonth = endOfMonth(parsedDate);
+      where = {
+        date: {
+          [Op.between]: [startMonth, endMonth],
+        },
+        canceled_at: null,
+      };
+    }
     const meetapps = await Meetapp.findAll({
-      where: { owner_id: req.userId },
+      where,
+      order: [['date', 'ASC']],
       include: [
         {
           model: File,
@@ -24,11 +40,12 @@ class MeetappController {
   async store(req, res) {
     const { title, description, location, date, banner_id } = req.body;
     /* VERIFYING THE BANNER */
-    const image = await File.findByPk(banner_id);
-    if (!image) return res.status(400).json({ error: 'Banner not found' });
-    if (image.type !== 'banner')
-      return res.status(400).json({ error: 'Your picture must be a banner' });
-
+    if (banner_id) {
+      const image = await File.findByPk(banner_id);
+      if (!image) return res.status(400).json({ error: 'Banner not found' });
+      if (image.type !== 'banner')
+        return res.status(400).json({ error: 'Your picture must be a banner' });
+    }
     /* VERIFYING PAST DATE */
     if (isBefore(parseISO(date), new Date()))
       return res
@@ -74,6 +91,13 @@ class MeetappController {
     }
 
     await meetapp.update(req.body);
+
+    await Notification.create(
+      meetapp.subscribers.map(subscriber => ({
+        user: subscriber,
+        content: `${meetapp.title} was updated!`,
+      }))
+    );
 
     const {
       id,
@@ -199,6 +223,7 @@ class MeetappController {
     );
 
     return res.status(200).json({
+      id,
       title,
       description,
       location,

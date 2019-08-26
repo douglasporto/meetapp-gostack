@@ -24,24 +24,24 @@ export default function Profile() {
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
         <AvatarInput name="avatar_id" />
-        <Input name="name" placeholder="Nome Completo" />
-        <Input type="email" name="email" placeholder="Seu E-mail" />
+        <Input name="name" placeholder="Full name" />
+        <Input type="email" name="email" placeholder="Your E-mail" />
         <hr />
         <Input
           type="password"
           name="oldPassword"
-          placeholder="Sua senha atual"
+          placeholder="Your password old"
         />
-        <Input type="password" name="password" placeholder="Nova senha" />
+        <Input type="password" name="password" placeholder="New password" />
         <Input
           type="password"
           name="confirmPassword"
-          placeholder="Confirme a senha"
+          placeholder="Confirm password"
         />
-        <button type="submit">Atualizar perfil</button>
+        <button type="submit">Update Profile</button>
       </Form>
       <button type="button" onClick={handleSignOut}>
-        Sair
+        Logout
       </button>
     </Container>
   );

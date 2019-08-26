@@ -41,6 +41,11 @@ export const Container = styled.div`
       font-size: 24px;
     }
   }
+  .loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
   footer {
     align-self: center;
     align-items: center;

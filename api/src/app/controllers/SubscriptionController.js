@@ -58,38 +58,11 @@ class SubscriptionController {
         conflict: conflictMeetapps,
       });
 
-    const {
-      id,
-      title,
-      description,
-      location,
-      date,
-      banner,
-    } = await meetapp.update({
-      subscribers: [req.userId, ...meetapp.subscribers],
-    });
-
-    const { avatar, name: subName, email: subEmail } = await User.findOne({
-      where: { id: req.userId },
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
-
-    /* SEND EMAIL */
-    // await Queue.add(SubscriptionMail.key, {
-    //   meetapp,
-    //   banner,
-    //   title,
-    //   avatar,
-    //   subName,
-    //   subEmail,
-    // });
-
+    const { title, description, location, date, banner } = await meetapp.update(
+      {
+        subscribers: [req.userId, ...meetapp.subscribers],
+      }
+    );
     const user = await User.findByPk(req.userId, {
       include: [
         {
@@ -105,7 +78,6 @@ class SubscriptionController {
       user: meetapp.owner_id,
       content: `${user.name} signed up for your Meetapp ${title}!`,
       picture: user.avatar ? user.avatar.url : 'adorable',
-      redirects: `/details/${id}`,
       payload: {
         adorable: user.name,
       },
@@ -115,7 +87,6 @@ class SubscriptionController {
     await Notification.create({
       user: user.id,
       content: `You are now subscribed into ${title}!`,
-      redirects: `/details/${id}`,
     });
 
     return res.status(200).json({
@@ -125,6 +96,31 @@ class SubscriptionController {
       date,
       banner,
     });
+  }
+
+  async delete(req, res) {
+    const meetapp = await Meetapp.findOne({ where: { id: req.params.id } });
+
+    if (!meetapp)
+      return res.status(400).json({ error: 'This meetapp does not exists!' });
+
+    if (meetapp.past)
+      return res
+        .status(400)
+        .json({ error: 'You can not unsubscribe a finished meetapp!' });
+
+    if (!meetapp.subscribers.includes(req.userId))
+      return res.status(400).json({ error: 'You are not subscribed!' });
+
+    const removeFromSubs = subs => {
+      subs.splice(subs.indexOf(req.userId), 1);
+      return subs;
+    };
+    const subscribers = removeFromSubs(meetapp.subscribers);
+
+    await meetapp.update({ subscribers });
+
+    return res.send();
   }
 }
 
