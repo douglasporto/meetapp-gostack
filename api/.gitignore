@@ -3,7 +3,6 @@ node_modules
 
 coverage
 
-tmp/*
 tmp/uploads/*
 
 !tmp/uploads/.gitkeep
