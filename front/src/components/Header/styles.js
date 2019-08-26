@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #fff;
+  background: #000;
   padding: 0 30;
 `;
 export const Content = styled.div`
@@ -21,7 +21,7 @@ export const Content = styled.div`
     }
     a {
       font-weight: bold;
-      color: #7159c1;
+      color: #d44059;
     }
   }
   aside {
@@ -39,7 +39,7 @@ export const Profile = styled.div`
     margin-right: 10px;
     strong {
       display: block;
-      color: #333;
+      color: #fff;
     }
     a {
       display: block;

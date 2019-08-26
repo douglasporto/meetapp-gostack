@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Notifications from '~/components/Notifications';
-import Logo from '~/assets/logo-purple.svg';
+import Logo from '~/assets/logo.svg';
 
 import { Container, Content, Profile } from './styles';
 
@@ -14,15 +14,17 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={Logo} alt="Logo MeetApp" />
-          <Link to="/dashboard">DASHBOARD</Link>
+          <Link to="/dashboard">
+            <img src={Logo} alt="Logo MeetApp" />
+          </Link>
+          <Link to="/my-meetapps">My MeetApp</Link>
         </nav>
         <aside>
           <Notifications />
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link to="/profile">Meu Perfil</Link>
+              <Link to="/profile">My Profile</Link>
             </div>
             <img
               src={
