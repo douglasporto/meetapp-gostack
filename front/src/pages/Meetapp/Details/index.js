@@ -72,14 +72,14 @@ export default function Meetapp({ match }) {
   async function handleCancel() {
     try {
       await api.delete(`meetapps/${id.value}`);
-      toast.success('Meepapp cancelado com sucesso');
+      toast.success('Meepapp successfully canceled');
       history.push('/dashboard');
     } catch (e) {
       const error = e.response;
       toast.error(
         !!error && error.data.error
           ? `Ops! ${error.data.error}`
-          : 'Ocorreu um erro, tente novamente'
+          : 'An error has occurred, try again'
       );
     }
   }
@@ -89,18 +89,18 @@ export default function Meetapp({ match }) {
       if (subscriber) {
         await api.post(`subscriptions/${id.value}`);
         setcountSubscribed(countSubscribed + 1);
-        toast.success(`Você foi inscrito no ${meetapp.title}! ;)`);
+        toast.success(`You are now subscribed at ${meetapp.title}! ;)`);
       } else {
         await api.delete(`subscriptions/${id.value}`);
         setcountSubscribed(countSubscribed - 1);
-        toast.warn(`Você foi cancelado da inscrição no ${meetapp.title}! ;)`);
+        toast.warn(`Unsubscribed from ${meetapp.title}! ;)`);
       }
     } catch (e) {
       const error = e.response;
       toast.error(
         !!error && error.data.error
           ? `Ops! ${error.data.error}`
-          : 'Ocorreu um erro, tente novamente'
+          : 'An error has occurred, try again'
       );
     }
   }
@@ -127,7 +127,7 @@ export default function Meetapp({ match }) {
                     onClick={() => history.push(`/meetapp-edit/${meetapp.id}`)}
                   >
                     <MdEdit />
-                    Editar
+                    Edit
                   </Button>
                   <Button
                     type="button"
@@ -135,7 +135,7 @@ export default function Meetapp({ match }) {
                     onClick={handleCancel}
                   >
                     <MdDeleteForever />
-                    Cancelar
+                    Cancel
                   </Button>
                 </div>
               )}
@@ -153,7 +153,9 @@ export default function Meetapp({ match }) {
                 <span>{meetapp.formattedDate}</span>
                 <MdPlace />
                 <span>{meetapp.location}</span>
-                <span>por {meetapp.owner.name}</span>
+                <span>
+                  by <strong>{meetapp.owner.name}</strong>
+                </span>
               </div>
               <div className="subscriber">
                 {!meetapp.canceled_at &&
