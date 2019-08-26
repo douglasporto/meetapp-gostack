@@ -58,38 +58,11 @@ class SubscriptionController {
         conflict: conflictMeetapps,
       });
 
-    const {
-      id,
-      title,
-      description,
-      location,
-      date,
-      banner,
-    } = await meetapp.update({
-      subscribers: [req.userId, ...meetapp.subscribers],
-    });
-
-    const { avatar, name: subName, email: subEmail } = await User.findOne({
-      where: { id: req.userId },
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
-
-    /* SEND EMAIL */
-    // await Queue.add(SubscriptionMail.key, {
-    //   meetapp,
-    //   banner,
-    //   title,
-    //   avatar,
-    //   subName,
-    //   subEmail,
-    // });
-
+    const { title, description, location, date, banner } = await meetapp.update(
+      {
+        subscribers: [req.userId, ...meetapp.subscribers],
+      }
+    );
     const user = await User.findByPk(req.userId, {
       include: [
         {

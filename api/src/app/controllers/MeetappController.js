@@ -7,16 +7,23 @@ import Notification from '../schemas/Notification';
 
 class MeetappController {
   async index(req, res) {
-    const { date } = req.query;
-    const parsedDate = parseISO(date);
-    const startMonth = startOfMonth(parsedDate);
-    const endMonth = endOfMonth(parsedDate);
-    const meetapps = await Meetapp.findAll({
-      where: {
+    let where;
+    if (req.query.where === 'just-my-meetapps') {
+      where = { owner_id: req.userId };
+    } else {
+      const { date } = req.query;
+      const parsedDate = parseISO(date);
+      const startMonth = startOfMonth(parsedDate);
+      const endMonth = endOfMonth(parsedDate);
+      where = {
         date: {
           [Op.between]: [startMonth, endMonth],
         },
-      },
+        canceled_at: null,
+      };
+    }
+    const meetapps = await Meetapp.findAll({
+      where,
       order: [['date', 'ASC']],
       include: [
         {
