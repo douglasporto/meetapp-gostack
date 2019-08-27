@@ -39,7 +39,7 @@ export default function Meetapp({ match }) {
     async function loadingMeetapp() {
       try {
         const { data } = await api.get(`meetapps/${id.value}`);
-        const showSubs = 2;
+        const showSubs = 5;
         setMeetapp({
           ...data,
           formattedSubscribers: data.subscribers.slice(0, showSubs),
