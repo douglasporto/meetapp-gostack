@@ -24,7 +24,7 @@ export const Container = styled.div`
       border: 0;
       border-radius: 4px;
       height: 44px;
-      padding: 0 15px;
+      padding: 10px 15px;
       color: #fff;
       margin: 0 0 10px;
       &::placeholder {
@@ -42,7 +42,7 @@ export const Container = styled.div`
       margin: 0 0 10px;
       font-weight: bold;
     }
-    button {
+    > button {
       align-self: flex-end;
       align-items: center;
       background: #f94d6a;

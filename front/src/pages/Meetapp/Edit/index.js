@@ -28,6 +28,7 @@ export default function NewMeetapp({ match }) {
     try {
       const response = await api.put(`meetapps/${meetappId}`, data);
       setMeetappId(response.data.id);
+      history.push(`/meetapp-details/${meetappId}`);
       toast.success('MeeApp successfully updated');
     } catch (e) {
       const error = e.response;

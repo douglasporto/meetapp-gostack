@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import en from 'date-fns/locale/en-US';
 import { MdAddCircleOutline, MdChevronRight, MdFlag } from 'react-icons/md';
 
 import Loader from 'react-loader-spinner';
@@ -21,8 +21,8 @@ export default function MyMeetapps() {
       });
       const data = response.data.map(m => ({
         ...m,
-        formattedDate: format(parseISO(m.date), "d 'de' MMMM ', às' hh'h'mm", {
-          locale: pt,
+        formattedDate: format(parseISO(m.date), "MMMM d ', at' hh'h'mm", {
+          locale: en,
         }),
       }));
       setLoading(false);

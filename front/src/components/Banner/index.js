@@ -40,7 +40,7 @@ export default function BannerInput() {
   return (
     <Container>
       <label htmlFor="banner">
-        {preview && <img src={preview} alt="Banner" />}
+        {preview && <img src={preview} alt="banner_meetapp" />}
 
         {!preview && (
           <div className="icon-add">

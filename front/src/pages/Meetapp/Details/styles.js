@@ -133,6 +133,11 @@ export const Banner = styled.div`
   img {
     width: 100%;
     border-radius: 10px;
+    transition: transform 0.5s;
+    transform-origin: center;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;
 
