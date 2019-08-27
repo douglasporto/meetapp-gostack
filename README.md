@@ -101,7 +101,7 @@ $ cd meetapp-gostack/api
 $ yarn install
 
 # Created Postgree Docker container
-$ docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=meetapp -p 5432:5432 -d postgres
+$ docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=database_meetapp -p 5432:5432 -d postgres
 
 # Created Mongo Docker container
 $ docker run --name mongo_bmstarter -p 27017:27017 -d -t mongo
