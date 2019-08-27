@@ -24,12 +24,15 @@ export function* signIn({ payload }) {
 export function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
-    yield call(api.post, 'users', {
+    const response = yield call(api.post, 'users', {
       name,
       email,
       password,
     });
-    history.push('/');
+    const { token, user } = response.data;
+    yield put(signInSuccess(token, user));
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+    history.push('/dashboard');
   } catch (e) {
     toast.error('Falha na autenticação, verifique seus dados');
     yield put(signFailure());

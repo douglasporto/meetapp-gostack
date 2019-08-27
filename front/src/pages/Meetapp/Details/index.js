@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import en from 'date-fns/locale/en-US';
 import {
   MdEdit,
   MdDeleteForever,
@@ -44,13 +44,9 @@ export default function Meetapp({ match }) {
           ...data,
           formattedSubscribers: data.subscribers.slice(0, showSubs),
           sumSubscribers: data.subscribers.length - showSubs,
-          formattedDate: format(
-            parseISO(data.date),
-            "dd 'de' MMMM', às' H'h'",
-            {
-              locale: pt,
-            }
-          ),
+          formattedDate: format(parseISO(data.date), "MMMM dd ', at' H'h'", {
+            locale: en,
+          }),
         });
         setSubscribed(data.subscribed);
         setcountSubscribed(data.subscribers.length);
@@ -72,14 +68,14 @@ export default function Meetapp({ match }) {
   async function handleCancel() {
     try {
       await api.delete(`meetapps/${id.value}`);
-      toast.success('Meepapp cancelado com sucesso');
+      toast.success('Meepapp successfully canceled');
       history.push('/dashboard');
     } catch (e) {
       const error = e.response;
       toast.error(
         !!error && error.data.error
           ? `Ops! ${error.data.error}`
-          : 'Ocorreu um erro, tente novamente'
+          : 'An error has occurred, try again'
       );
     }
   }
@@ -89,18 +85,18 @@ export default function Meetapp({ match }) {
       if (subscriber) {
         await api.post(`subscriptions/${id.value}`);
         setcountSubscribed(countSubscribed + 1);
-        toast.success(`Você foi inscrito no ${meetapp.title}! ;)`);
+        toast.success(`You are now subscribed at ${meetapp.title}! ;)`);
       } else {
         await api.delete(`subscriptions/${id.value}`);
         setcountSubscribed(countSubscribed - 1);
-        toast.warn(`Você foi cancelado da inscrição no ${meetapp.title}! ;)`);
+        toast.warn(`Unsubscribed from ${meetapp.title}! ;)`);
       }
     } catch (e) {
       const error = e.response;
       toast.error(
         !!error && error.data.error
           ? `Ops! ${error.data.error}`
-          : 'Ocorreu um erro, tente novamente'
+          : 'An error has occurred, try again'
       );
     }
   }
@@ -127,16 +123,18 @@ export default function Meetapp({ match }) {
                     onClick={() => history.push(`/meetapp-edit/${meetapp.id}`)}
                   >
                     <MdEdit />
-                    Editar
+                    Edit
                   </Button>
-                  <Button
-                    type="button"
-                    className="btn-red"
-                    onClick={handleCancel}
-                  >
-                    <MdDeleteForever />
-                    Cancelar
-                  </Button>
+                  {meetapp.cancelable && (
+                    <Button
+                      type="button"
+                      className="btn-red"
+                      onClick={handleCancel}
+                    >
+                      <MdDeleteForever />
+                      Cancel
+                    </Button>
+                  )}
                 </div>
               )}
           </header>
@@ -153,7 +151,9 @@ export default function Meetapp({ match }) {
                 <span>{meetapp.formattedDate}</span>
                 <MdPlace />
                 <span>{meetapp.location}</span>
-                <span>por {meetapp.owner.name}</span>
+                <span>
+                  By <strong>{meetapp.owner.name}</strong>
+                </span>
               </div>
               <div className="subscriber">
                 {!meetapp.canceled_at &&
@@ -165,7 +165,7 @@ export default function Meetapp({ match }) {
                         onClick={() => handleSubscribe(true)}
                         type="button"
                       >
-                        Inscrever
+                        Subscribe
                       </Button>
                     ) : (
                       <Button
@@ -173,7 +173,7 @@ export default function Meetapp({ match }) {
                         onClick={() => handleSubscribe(false)}
                         type="button"
                       >
-                        Desinscrever
+                        Unsubscribe
                       </Button>
                     )))}
                 <ul>

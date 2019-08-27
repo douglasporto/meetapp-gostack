@@ -19,9 +19,16 @@ export const Content = styled.div`
       padding-right: 20px;
       border-right: 1px solid #eee;
     }
-    a {
-      font-weight: bold;
+    & > a {
       color: #d44059;
+      font-weight: bold;
+      max-height: 43px;
+      opacity: 0.7;
+      transition: 0.2s;
+      &:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
     }
   }
   aside {
@@ -46,6 +53,12 @@ export const Profile = styled.div`
       margin-top: 2px;
       font-size: 12px;
       color: #999;
+      &:hover {
+        transform: scale(1.03);
+        strong {
+          opacity: 1;
+        }
+      }
     }
   }
   img {
