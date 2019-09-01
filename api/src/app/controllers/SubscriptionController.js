@@ -41,7 +41,6 @@ class SubscriptionController {
         },
       ],
     });
-    console.log(meetapps);
 
     const meetAppList = meetapps.map(m => ({
       ...m.toJSON(),
