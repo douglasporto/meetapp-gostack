@@ -31,10 +31,96 @@ class MeetappController {
           as: 'banner',
           attributes: ['id', 'path', 'url'],
         },
+        {
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'name'],
+        },
       ],
     });
 
-    return res.status(200).json(meetapps);
+    const meetAppList = meetapps.map(m => ({
+      ...m.toJSON(),
+      canSubscribe: !m.subscribers.find(user_id => user_id === req.userId),
+    }));
+
+    return res.status(200).json(meetAppList);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const meetapp = await Meetapp.findByPk(id, {
+      include: [
+        {
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'name'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!meetapp)
+      return res.status(400).json({ error: 'Meetapp does not exists' });
+
+    const {
+      title,
+      description,
+      location,
+      date,
+      owner,
+      past,
+      cancelable,
+      canceled_at,
+      banner,
+    } = meetapp;
+
+    const subscribers = await User.findAll({
+      where: {
+        [Op.or]: meetapp.subscribers.map(user_id => ({
+          id: user_id,
+        })),
+      },
+      attributes: ['id', 'name'],
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    const subscribed = !!meetapp.subscribers.find(
+      user_id => user_id === req.userId
+    );
+
+    return res.status(200).json({
+      id,
+      title,
+      description,
+      location,
+      date,
+      owner,
+      past,
+      cancelable,
+      canceled_at,
+      banner,
+      subscribers,
+      subscribed,
+    });
   }
 
   async store(req, res) {
@@ -156,82 +242,6 @@ class MeetappController {
     await meetapp.save();
 
     return res.status(200).send();
-  }
-
-  async show(req, res) {
-    const { id } = req.params;
-
-    const meetapp = await Meetapp.findByPk(id, {
-      include: [
-        {
-          model: User,
-          as: 'owner',
-          attributes: ['id', 'name'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['id', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: File,
-          as: 'banner',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
-
-    if (!meetapp)
-      return res.status(400).json({ error: 'Meetapp does not exists' });
-
-    const {
-      title,
-      description,
-      location,
-      date,
-      owner,
-      past,
-      cancelable,
-      canceled_at,
-      banner,
-    } = meetapp;
-
-    const subscribers = await User.findAll({
-      where: {
-        [Op.or]: meetapp.subscribers.map(user_id => ({
-          id: user_id,
-        })),
-      },
-      attributes: ['id', 'name'],
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
-
-    const subscribed = !!meetapp.subscribers.find(
-      user_id => user_id === req.userId
-    );
-
-    return res.status(200).json({
-      id,
-      title,
-      description,
-      location,
-      date,
-      owner,
-      past,
-      cancelable,
-      canceled_at,
-      banner,
-      subscribers,
-      subscribed,
-    });
   }
 }
 

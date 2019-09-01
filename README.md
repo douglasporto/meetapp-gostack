@@ -5,7 +5,7 @@
 </h1>
 
 <h4 align="center">
-  A challenge for [Rocketseat Certificate](https://rocketseat.com.br/bootcamp)
+  A challenge for [RocketSeat GoStack Bootcamp](https://rocketseat.com.br/bootcamp) Certificate
 </h4>
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/douglasporto/meetapp-gostack.svg">
@@ -34,8 +34,8 @@
   <a href="#memo-license">License</a>
 </p>
 
-![App Screenshot](https://github.com/douglasporto/meetapp-gostack/blob/master/assets/screenshoot.png)
-![App Screenshot](https://github.com/douglasporto/meetapp-gostack/blob/master/assets/screenshoot2.png)
+![App Screenshot](https://github.com/douglasporto/meetapp-gostack/blob/master/assets/screenshot.png)
+![App Screenshot](https://github.com/douglasporto/meetapp-gostack/blob/master/assets/screenshot2.png)
 
 ## :rocket: Technologies
 
@@ -101,7 +101,7 @@ $ cd meetapp-gostack/api
 $ yarn install
 
 # Created Postgree Docker container
-$ docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=meetapp -p 5432:5432 -d postgres
+$ docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=database_meetapp -p 5432:5432 -d postgres
 
 # Created Mongo Docker container
 $ docker run --name mongo_bmstarter -p 27017:27017 -d -t mongo

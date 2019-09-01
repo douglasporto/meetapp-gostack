@@ -1,5 +1,11 @@
 import { Op } from 'sequelize';
-import { startOfHour, addHours } from 'date-fns';
+import {
+  parseISO,
+  startOfMonth,
+  endOfMonth,
+  startOfHour,
+  addHours,
+} from 'date-fns';
 
 import Meetapp from '../models/Meetapp';
 import User from '../models/User';
@@ -10,6 +16,40 @@ import File from '../models/File';
 import Notification from '../schemas/Notification';
 
 class SubscriptionController {
+  async index(req, res) {
+    const { date } = req.query;
+    const parsedDate = parseISO(date);
+    const startMonth = startOfMonth(parsedDate);
+    const endMonth = endOfMonth(parsedDate);
+    const meetapps = await Meetapp.findAll({
+      where: {
+        date: { [Op.between]: [startMonth, endMonth] },
+        subscribers: { [Op.contains]: [req.userId] },
+        canceled_at: null,
+      },
+      order: [['date', 'ASC']],
+      include: [
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+
+    const meetAppList = meetapps.map(m => ({
+      ...m.toJSON(),
+      canSubscribe: !m.subscribers.find(user_id => user_id === req.userId),
+    }));
+
+    return res.status(200).json(meetAppList);
+  }
+
   async store(req, res) {
     const meetapp = await Meetapp.findOne({
       where: { id: req.params.id },
