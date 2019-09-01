@@ -11,12 +11,12 @@ import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .email('E-mail invalido')
-    .required('E-mail Obrigatorio'),
+    .email('E-mail invalid')
+    .required('E-mail is required'),
   password: Yup.string()
     .min(6)
     .max(15)
-    .required('Senha Obrigatoria'),
+    .required('Password is required'),
 });
 
 export default function SignIn() {

@@ -3,6 +3,7 @@ import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { errorMessage } from '~/utils/Message';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -26,12 +27,7 @@ export default function NewMeetapp() {
       history.push('/');
       toast.success('MeeApp successfully created');
     } catch (e) {
-      const error = e.response;
-      toast.error(
-        !!error && error.data.error
-          ? `Ops! ${error.data.error}`
-          : 'An error has occurred, try again'
-      );
+      errorMessage(e);
     }
   }
   return (

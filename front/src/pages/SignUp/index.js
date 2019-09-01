@@ -8,14 +8,14 @@ import logo from '~/assets/logo.svg';
 import { signUpRequest } from '~/store/modules/auth/actions';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Nome Obrigatoria'),
+  name: Yup.string().required('Name is required'),
   email: Yup.string()
-    .email('E-mail invalido')
-    .required('E-mail Obrigatorio'),
+    .email('E-mail invalid')
+    .required('E-mail is required'),
   password: Yup.string()
     .min(6)
     .max(15)
-    .required('Senha Obrigatoria'),
+    .required('Password is required'),
 });
 export default function SignUp() {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import {
   MdAddCircleOutline,
   MdChevronLeft,
   MdChevronRight,
-  MdFlag,
+  MdSentimentDissatisfied,
 } from 'react-icons/md';
 import api from '~/services/api';
 import history from '~/services/history';
@@ -78,8 +78,8 @@ export default function Dashboard() {
         </ul>
       ) : (
         <NoMeetapps>
-          <MdFlag color="#fff" size={40} />
-          <span>Ops, nenhum meetapp para este mês!</span>
+          <MdSentimentDissatisfied color="#fff" size={40} />
+          <span>Oops, no meetapp for this month!</span>
         </NoMeetapps>
       )}
       <footer>
