@@ -33,15 +33,24 @@ export default function Dashboard() {
   );
   useEffect(() => {
     async function loadMeetapps() {
-      const response = await api.get('meetapps', { params: { date } });
-      const data = response.data.map(m => ({
-        ...m,
-        formattedDate: format(parseISO(m.date), "MMMM d', at' hh'h'mm", {
-          locale: en,
-        }),
-      }));
-      console.tron.log(data);
-      setMeetapps(data);
+      try {
+        const response = await api.get('meetapps', { params: { date } });
+        const data = response.data.map(m => ({
+          ...m,
+          formattedDate: format(parseISO(m.date), "MMMM d', at' hh'h'mm", {
+            locale: en,
+          }),
+        }));
+        setMeetapps(data);
+      } catch (e) {
+        const error = e.response;
+        Alert.alert(
+          'Error',
+          !!error && error.data.error
+            ? `Ops! ${error.data.error}`
+            : 'An error has occurred, check your internet and try again'
+        );
+      }
     }
     loadMeetapps();
   }, [date]);
