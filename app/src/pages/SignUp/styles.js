@@ -1,6 +1,8 @@
+/* MODULES */
 import { Platform } from 'react-native';
+import styled from 'styled-components/native';
 
-import styled from 'styled-components';
+/* COMPONENTS */
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 
