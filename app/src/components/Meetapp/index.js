@@ -13,10 +13,8 @@ import {
   Info,
   InfoText,
   ViewButtom,
+  SubmitButton,
 } from './styles';
-
-/* COMPONENTS */
-import SubmitButton from '~/components/Button';
 
 export default function Meetapp({ data, handleSubscribe, handleUninscribe }) {
   const userId = useSelector(store => store.user.profile.id);
