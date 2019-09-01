@@ -1,30 +1,34 @@
+/* MODULES */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { parseISO } from 'date-fns';
-
-import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
+
+/* COMPONENTS */
+import { Form, Input } from '@rocketseat/unform';
 import { MdAddCircleOutline } from 'react-icons/md';
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
+import schema from '~/validations/Meetapp';
 import { errorMessage } from '~/utils/Message';
-
-import api from '~/services/api';
-import history from '~/services/history';
-
-import { Container } from '~/styles/FormMeetapp';
-
 import Banner from '~/components/Banner';
 import SelectDate from '~/components/DatePicker';
 
-import schema from '~/validations/Meetapp';
+/* SERVICES */
+import api from '~/services/api';
+import history from '~/services/history';
+
+/* STYLES */
+import { Container } from '~/styles/FormMeetapp';
 
 export default function NewMeetapp({ match }) {
+  /* STATES */
   const [date, setDate] = useState();
   const [loading, setLoading] = useState(true);
   const [meetapp, setMeetapp] = useState(true);
   const [meetappId, setMeetappId] = useState(match.params.id);
 
+  /* FUNCTIONS */
   async function handleSubmit(data) {
     try {
       const response = await api.put(`meetapps/${meetappId}`, data);

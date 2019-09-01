@@ -1,6 +1,6 @@
+/* MODULES */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-
 import { format, parseISO } from 'date-fns';
 import en from 'date-fns/locale/en-US';
 import {
@@ -9,19 +9,22 @@ import {
   MdInsertInvitation,
   MdPlace,
 } from 'react-icons/md';
-
 import PropTypes from 'prop-types';
 
+/* COMPONENTS */
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import { errorMessage } from '~/utils/Message';
 
+/* SERVICES */
 import api from '~/services/api';
 import history from '~/services/history';
 
+/* STYLES */
 import { Container, Content, Banner, Tooltip, Button } from './styles';
 
 export default function Meetapp({ match }) {
+  /* STATES */
   const [loading, setLoading] = useState(true);
   const [meetapp, setMeetapp] = useState();
   const [subscribed, setSubscribed] = useState(false);
@@ -61,6 +64,7 @@ export default function Meetapp({ match }) {
     loadingMeetapp();
   }, [id]);
 
+  /* FUNCTIONS */
   async function handleCancel() {
     try {
       await api.delete(`meetapps/${id.value}`);

@@ -1,3 +1,4 @@
+/* MODULES */
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, subMonths, addMonths, parseISO } from 'date-fns';
@@ -8,11 +9,15 @@ import {
   MdChevronRight,
   MdSentimentDissatisfied,
 } from 'react-icons/md';
+
+/* SERVICES */
 import api from '~/services/api';
 import history from '~/services/history';
+/* STYLES */
 import { Container, NoMeetapps, MeetappCard } from './styles';
 
 export default function Dashboard() {
+  /* STATES */
   const [meetapps, setMeetapps] = useState([]);
   const [date, setDate] = useState(new Date());
 
@@ -35,6 +40,7 @@ export default function Dashboard() {
     loadMeetapps();
   }, [date]);
 
+  /* FUNCTIONS */
   function handlePrevDay() {
     setDate(subMonths(date, 1));
   }

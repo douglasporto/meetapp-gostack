@@ -1,3 +1,4 @@
+/* MODULES */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
@@ -8,13 +9,18 @@ import {
   MdSentimentDissatisfied,
 } from 'react-icons/md';
 
+/* COMPONENTS */
 import Loader from 'react-loader-spinner';
+
+/* SERVICES */
 import api from '~/services/api';
 import history from '~/services/history';
 
+/* STYLES */
 import { Container, NoMeetapps, MeetappCard } from './styles';
 
 export default function MyMeetapps() {
+  /* STATES */
   const [meetapps, setMeetapps] = useState([]);
   const [loading, setLoading] = useState(true);
 
