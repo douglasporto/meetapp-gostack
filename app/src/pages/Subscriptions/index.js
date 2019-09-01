@@ -24,12 +24,12 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetapp from '~/components/Meetapp';
 
-export default function Dashboard() {
+export default function Subscriptions() {
   /* STATES */
   const [meetapps, setMeetapps] = useState([]);
   const [date, setDate] = useState(new Date());
   const [refreshing] = useState(false);
-  const [noMeetapps] = useState([1]);
+  const [noMeetapp] = useState([1]);
 
   const dateFormatted = useMemo(
     () => format(date, 'yyyy MMMM', { locale: en }),
@@ -38,7 +38,8 @@ export default function Dashboard() {
   useEffect(() => {
     async function loadMeetapps() {
       try {
-        const response = await api.get('meetapps', { params: { date } });
+        const response = await api.get('subscriptions', { params: { date } });
+        console.tron.log(response);
         const data = response.data.map(m => ({
           ...m,
           formattedDate: format(parseISO(m.date), "MMMM d', at' hh'h'mm", {
@@ -114,7 +115,7 @@ export default function Dashboard() {
             />
           ) : (
             <List
-              data={noMeetapps}
+              data={noMeetapp}
               keyExtractor={item => String(item)}
               renderItem={() => (
                 <NoMeetapps>
@@ -134,9 +135,9 @@ export default function Dashboard() {
   );
 }
 
-Dashboard.navigationOptions = {
-  tabBarLabel: 'MeetApps',
+Subscriptions.navigationOptions = {
+  tabBarLabel: 'Subscriptions',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="list" size={20} color={tintColor} />
+    <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };
