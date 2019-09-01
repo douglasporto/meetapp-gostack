@@ -89,6 +89,12 @@ export const MeetappCard = styled.div`
     strong,
     span {
       width: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      strong {
+        color: #f94d6a;
+      }
     }
     time {
       font-size: 12px;

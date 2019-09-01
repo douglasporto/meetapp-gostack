@@ -10,10 +10,6 @@ const location = Yup.string().max(
   'Location can not exceed 150 characters!'
 );
 const date = Yup.date('Invalid date!');
-const banner_id = Yup.number();
-const subscribers = Yup.array(
-  Yup.number('Subscribers must be an array of IDs!')
-);
 
 export const createMeetapp = async (req, res, next) => {
   const schema = Yup.object().shape({

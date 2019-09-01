@@ -1,5 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import { toast } from 'react-toastify';
+import { errorMessage } from '~/utils/Message';
 
 import { signInSuccess, signFailure } from './actions';
 import history from '~/services/history';
@@ -17,7 +17,7 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     history.push('/dashboard');
   } catch (e) {
-    toast.error('Falha na autenticação, verifique seus dados');
+    errorMessage(e);
     yield put(signFailure());
   }
 }
@@ -34,7 +34,7 @@ export function* signUp({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     history.push('/dashboard');
   } catch (e) {
-    toast.error('Falha na autenticação, verifique seus dados');
+    errorMessage(e);
     yield put(signFailure());
   }
 }

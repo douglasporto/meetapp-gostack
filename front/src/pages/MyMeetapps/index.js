@@ -1,16 +1,26 @@
+/* MODULES */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import en from 'date-fns/locale/en-US';
-import { MdAddCircleOutline, MdChevronRight, MdFlag } from 'react-icons/md';
+import {
+  MdAddCircleOutline,
+  MdChevronRight,
+  MdSentimentDissatisfied,
+} from 'react-icons/md';
 
+/* COMPONENTS */
 import Loader from 'react-loader-spinner';
+
+/* SERVICES */
 import api from '~/services/api';
 import history from '~/services/history';
 
+/* STYLES */
 import { Container, NoMeetapps, MeetappCard } from './styles';
 
 export default function MyMeetapps() {
+  /* STATES */
   const [meetapps, setMeetapps] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,6 +72,7 @@ export default function MyMeetapps() {
                     ) : (
                       <span>
                         <strike>{meetapp.title}</strike>
+                        <strong>Canceled</strong>
                       </span>
                     )}
                     <time>{meetapp.formattedDate}</time>
@@ -72,8 +83,8 @@ export default function MyMeetapps() {
             </ul>
           ) : (
             <NoMeetapps>
-              <MdFlag color="#fff" size={40} />
-              <span>Ops, nenhum meetapp para este mês!</span>
+              <MdSentimentDissatisfied color="#fff" size={40} />
+              <span>Oops, no meetapp for this month!</span>
             </NoMeetapps>
           )}
         </>

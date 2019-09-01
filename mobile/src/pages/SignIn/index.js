@@ -1,13 +1,16 @@
+/* MODULES */
 import React, { useRef, useState } from 'react';
 import { Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
+/* COMPONENTS */
 import logo from '~/assets/logo.png';
-
 import Background from '~/components/Background';
 
+/* REDUX */
 import { signInRequest } from '~/store/modules/auth/actions';
 
+/* STYLES */
 import {
   Container,
   Form,
@@ -21,11 +24,13 @@ export default function SignIn({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();
 
+  /* STATES */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const loading = useSelector(state => state.auth.loading);
 
+  /* FUNCTIONS */
   function handleSubmit() {
     dispatch(signInRequest(email, password));
   }

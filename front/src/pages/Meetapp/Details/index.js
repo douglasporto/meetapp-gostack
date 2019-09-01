@@ -1,6 +1,6 @@
+/* MODULES */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-
 import { format, parseISO } from 'date-fns';
 import en from 'date-fns/locale/en-US';
 import {
@@ -9,18 +9,22 @@ import {
   MdInsertInvitation,
   MdPlace,
 } from 'react-icons/md';
-
 import PropTypes from 'prop-types';
 
+/* COMPONENTS */
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
+import { errorMessage } from '~/utils/Message';
 
+/* SERVICES */
 import api from '~/services/api';
 import history from '~/services/history';
 
+/* STYLES */
 import { Container, Content, Banner, Tooltip, Button } from './styles';
 
 export default function Meetapp({ match }) {
+  /* STATES */
   const [loading, setLoading] = useState(true);
   const [meetapp, setMeetapp] = useState();
   const [subscribed, setSubscribed] = useState(false);
@@ -51,12 +55,7 @@ export default function Meetapp({ match }) {
         setSubscribed(data.subscribed);
         setcountSubscribed(data.subscribers.length);
       } catch (e) {
-        const error = e.response;
-        toast.error(
-          !!error && error.data.error
-            ? `Ops! ${error.data.error}`
-            : 'Ocorreu um erro, tente novamente'
-        );
+        errorMessage(e);
         history.push('/dashboard');
       } finally {
         setLoading(false);
@@ -65,18 +64,14 @@ export default function Meetapp({ match }) {
     loadingMeetapp();
   }, [id]);
 
+  /* FUNCTIONS */
   async function handleCancel() {
     try {
       await api.delete(`meetapps/${id.value}`);
       toast.success('Meepapp successfully canceled');
       history.push('/dashboard');
     } catch (e) {
-      const error = e.response;
-      toast.error(
-        !!error && error.data.error
-          ? `Ops! ${error.data.error}`
-          : 'An error has occurred, try again'
-      );
+      errorMessage(e);
     }
   }
 
@@ -92,12 +87,7 @@ export default function Meetapp({ match }) {
         toast.warn(`Unsubscribed from ${meetapp.title}! ;)`);
       }
     } catch (e) {
-      const error = e.response;
-      toast.error(
-        !!error && error.data.error
-          ? `Ops! ${error.data.error}`
-          : 'An error has occurred, try again'
-      );
+      errorMessage(e);
     }
   }
 
@@ -111,7 +101,7 @@ export default function Meetapp({ match }) {
         <>
           <header>
             <strong>{meetapp.title}</strong>
-            {meetapp.canceled_at && <h2 className="cancel">Cancelado</h2>}
+            {meetapp.canceled_at && <h2 className="cancel">Canceled</h2>}
             {meetapp.past && <h2 className="fineshed">Encerrado</h2>}
             {!meetapp.canceled_at &&
               !meetapp.past &&
