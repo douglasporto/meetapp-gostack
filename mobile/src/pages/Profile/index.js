@@ -24,7 +24,7 @@ import {
 export default function Profile() {
   const profile = useSelector(state => state.user.profile);
   const dispatch = useDispatch();
-  /* refs */
+  /* REFS */
   const emailRef = useRef();
   const passwordRef = useRef();
   const oldPasswordRef = useRef();
