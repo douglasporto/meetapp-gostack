@@ -1,9 +1,9 @@
 /* MODULES */
 import React, { useState, useEffect, useMemo } from 'react';
-import { Alert } from 'react-native';
 import { format, subMonths, addMonths, parseISO } from 'date-fns';
 import en from 'date-fns/locale/en-US';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { errorMessage, successMessage } from '~/util/Message';
 
 /* SERVICES */
 import api from '~/services/api';
@@ -15,6 +15,8 @@ import {
   List,
   ButtonDate,
   TextDate,
+  NoMeetapps,
+  NoMeetappsText,
 } from './styles';
 
 /* COMPONENTS */
@@ -23,6 +25,7 @@ import Header from '~/components/Header';
 import Meetapp from '~/components/Meetapp';
 
 export default function Dashboard() {
+  /* STATES */
   const [meetapps, setMeetapps] = useState([]);
   const [date, setDate] = useState(new Date());
   const [refreshing] = useState(false);
@@ -43,13 +46,7 @@ export default function Dashboard() {
         }));
         setMeetapps(data);
       } catch (e) {
-        const error = e.response;
-        Alert.alert(
-          'Error',
-          !!error && error.data.error
-            ? `Ops! ${error.data.error}`
-            : 'An error has occurred, check your internet and try again'
-        );
+        errorMessage(e);
       }
     }
     loadMeetapps();
@@ -70,15 +67,9 @@ export default function Dashboard() {
     try {
       await api.post(`subscriptions/${id}`);
       handleRefresh();
-      Alert.alert('Succcess', 'You have subscribed to this meetup!');
+      successMessage('You have subscribed to this meetup!');
     } catch (e) {
-      const error = e.response;
-      Alert.alert(
-        'Error',
-        !!error && error.data.error
-          ? `Ops! ${error.data.error}`
-          : 'An error has occurred, try again'
-      );
+      errorMessage(e);
     }
   }
 
@@ -86,16 +77,9 @@ export default function Dashboard() {
     try {
       await api.delete(`subscriptions/${id}`);
       handleRefresh();
-      Alert.alert('Success', 'Meepapp successfully canceled');
+      successMessage('Meepapp successfully canceled');
     } catch (e) {
-      console.tron.log(e);
-      const error = e.response;
-      Alert.alert(
-        'Error',
-        !!error && error.data.error
-          ? `Ops! ${error.data.error}`
-          : 'An error has occurred, try again'
-      );
+      errorMessage(e);
     }
   }
 
@@ -113,19 +97,26 @@ export default function Dashboard() {
               <Icon name="navigate-next" size={36} color="#fff" />
             </ButtonDate>
           </ContainerHeader>
-          <List
-            data={meetapps}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <Meetapp
-                data={item}
-                handleSubscribe={() => handleSubscribe(item.id)}
-                handleUninscribe={() => handleUninscribe(item.id)}
-              />
-            )}
-            onRefresh={handleRefresh}
-            refreshing={refreshing}
-          />
+          {meetapps.length > 0 ? (
+            <List
+              data={meetapps}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => (
+                <Meetapp
+                  data={item}
+                  handleSubscribe={() => handleSubscribe(item.id)}
+                  handleUninscribe={() => handleUninscribe(item.id)}
+                />
+              )}
+              onRefresh={handleRefresh}
+              refreshing={refreshing}
+            />
+          ) : (
+            <NoMeetapps>
+              <Icon name="sentiment-dissatisfied" size={40} color="#fff" />
+              <NoMeetappsText>Oops, no meetapp for this month!</NoMeetappsText>
+            </NoMeetapps>
+          )}
         </Container>
       </Background>
     </>

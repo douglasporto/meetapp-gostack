@@ -30,3 +30,15 @@ export const TextDate = styled.Text`
   margin: 0 15px;
   font-weight: bold;
 `;
+
+export const NoMeetapps = styled.View`
+  align-items: center;
+  align-content: center;
+  margin-top: 40px;
+`;
+
+export const NoMeetappsText = styled.Text`
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 0;
+`;
