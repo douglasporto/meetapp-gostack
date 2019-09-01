@@ -1,8 +1,7 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import { Alert } from 'react-native';
+import { errorMessage } from '~/util/Message';
 
 import { signInSuccess, signFailure } from './actions';
-// import history from '~/services/history';
 import api from '~/services/api';
 
 export function* signIn({ payload }) {
@@ -15,9 +14,8 @@ export function* signIn({ payload }) {
     const { token, user } = response.data;
     yield put(signInSuccess(token, user));
     api.defaults.headers.Authorization = `Bearer ${token}`;
-    // history.push('/dashboard');
   } catch (e) {
-    Alert.alert('Authentication failed', 'Check your data');
+    errorMessage(e);
     yield put(signFailure());
   }
 }
@@ -32,9 +30,8 @@ export function* signUp({ payload }) {
     const { token, user } = response.data;
     yield put(signInSuccess(token, user));
     api.defaults.headers.Authorization = `Bearer ${token}`;
-    // history.push('/dashboard');
   } catch (e) {
-    Alert.alert('Authentication failed', 'Check your data');
+    errorMessage(e);
     yield put(signFailure());
   }
 }
@@ -47,9 +44,7 @@ export function setToken({ payload }) {
   }
 }
 
-export function signOut() {
-  // history.push('/');
-}
+export function signOut() {}
 
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
