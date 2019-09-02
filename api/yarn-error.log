@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js seed
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js add nodemailer- express-handlebars
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/douglasporto/Library/Android/sdk/tools:/Users/douglasporto/Library/Android/sdk/platform-tools
@@ -36,6 +36,7 @@ npm manifest:
       "date-fns": "^2.0.0-beta.2",
       "dotenv": "^8.0.0",
       "express": "^4.17.1",
+      "express-handlebars": "^3.1.0",
       "jsonwebtoken": "^8.5.1",
       "mongoose": "^5.6.4",
       "multer": "^1.4.1",
@@ -568,6 +569,10 @@ Lockfile:
   array-unique@^0.3.2:
     version "0.3.2"
     resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
+  
+  asap@~2.0.6:
+    version "2.0.6"
+    resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   
   asn1@~0.2.3:
     version "0.2.4"
@@ -1587,6 +1592,16 @@ Lockfile:
       jest-matcher-utils "^24.8.0"
       jest-message-util "^24.8.0"
       jest-regex-util "^24.3.0"
+  
+  express-handlebars@^3.1.0:
+    version "3.1.0"
+    resolved "https://registry.yarnpkg.com/express-handlebars/-/express-handlebars-3.1.0.tgz#c177ee9a81f6a2abada6b550b77b3e30c6bc0796"
+    dependencies:
+      glob "^7.1.3"
+      graceful-fs "^4.1.2"
+      handlebars "^4.1.2"
+      object.assign "^4.1.0"
+      promise "^8.0.2"
   
   express@^4.17.1:
     version "4.17.1"
@@ -3844,6 +3859,12 @@ Lockfile:
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   
+  promise@^8.0.2:
+    version "8.0.3"
+    resolved "https://registry.yarnpkg.com/promise/-/promise-8.0.3.tgz#f592e099c6cddc000d538ee7283bb190452b0bf6"
+    dependencies:
+      asap "~2.0.6"
+  
   prompts@^2.0.1:
     version "2.2.1"
     resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.2.1.tgz#f901dd2a2dfee080359c0e20059b24188d75ad35"
@@ -5163,16 +5184,14 @@ Lockfile:
       toposort "^2.0.2"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c yarn sequelize db:seed:all
-  Directory: /Users/douglasporto/Documents/projetos/bootcamp/meetup_api/api
-  Output:
-  
-      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:30281:17)
-      at ChildProcess.emit (events.js:189:13)
-      at maybeClose (internal/child_process.js:970:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:259:5)
+  Error: https://registry.yarnpkg.com/nodemailer-: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:65019:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:132430:22)
+      at Request.emit (events.js:189:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:133413:10)
+      at Request.emit (events.js:189:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:133333:12)
+      at Object.onceWrapper (events.js:277:13)
+      at IncomingMessage.emit (events.js:194:15)
+      at endReadableNT (_stream_readable.js:1125:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)

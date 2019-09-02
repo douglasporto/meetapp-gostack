@@ -12,21 +12,28 @@
     "seed": "yarn sequelize db:seed:all",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest --sourceMap=false --verbose",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "queue": "nodemon src/queue.js"
   },
   "dependencies": {
+    "@sentry/node": "5.6.2",
     "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.2.2",
     "cors": "^2.8.5",
     "date-fns": "^2.0.0-beta.2",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
     "multer": "^1.4.1",
     "nodemailer": "^6.3.0",
+    "nodemailer-express-handlebars": "^3.1.0",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.9.0",
+    "youch": "^2.0.10",
     "yup": "^0.27.0"
   },
   "devDependencies": {

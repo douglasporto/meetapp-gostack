@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import {
+  format,
   parseISO,
   startOfMonth,
   endOfMonth,
@@ -11,8 +12,10 @@ import Meetapp from '../models/Meetapp';
 import User from '../models/User';
 import File from '../models/File';
 
-// import SubscriptionMail from '../jobs/SubscriptionMail';
-// import Queue from '../../lib/Queue';
+import SubscriptionMail from '../jobs/SubscriptionMail';
+import Queue from '../../lib/Queue';
+
+// import Mail from '../../lib/Mail';
 import Notification from '../schemas/Notification';
 
 class SubscriptionController {
@@ -117,10 +120,6 @@ class SubscriptionController {
     await Notification.create({
       user: meetapp.owner_id,
       content: `${user.name} signed up for your Meetapp ${title}!`,
-      picture: user.avatar ? user.avatar.url : 'adorable',
-      payload: {
-        adorable: user.name,
-      },
     });
 
     /* SEND NOTIFICATION TO SUBSCRIBED */
@@ -128,6 +127,34 @@ class SubscriptionController {
       user: user.id,
       content: `You are now subscribed into ${title}!`,
     });
+
+    /* SEND EMAIL TO OWNER */
+    const { name: userSubName, email: userSubEmail } = await User.findOne({
+      where: { id: req.userId },
+    });
+
+    await Queue.add(SubscriptionMail.key, {
+      userName: user.name,
+      meetapp,
+      title,
+      date,
+      userSubName,
+      userSubEmail,
+    });
+
+    // Mail.sendMail({
+    //   to: `${meetapp.owner.name} <${meetapp.owner.email}>`,
+    //   subject: `${user.name} signed up for your Meetapp ${title}!`,
+    //   template: 'subscription',
+    //   context: {
+    //     ownerName: meetapp.owner.name,
+    //     meetappTitle: title,
+    //     meetappDate: format(date, "MMMM dd', at' H'h'"),
+    //     sendDate: format(new Date(), "MMMM dd', at' H'h'"),
+    //     userSubName,
+    //     userSubEmail,
+    //   },
+    // });
 
     return res.status(200).json({
       title,
