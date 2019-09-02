@@ -1,6 +1,5 @@
 import { Op } from 'sequelize';
 import {
-  format,
   parseISO,
   startOfMonth,
   endOfMonth,
@@ -14,8 +13,6 @@ import File from '../models/File';
 
 import SubscriptionMail from '../jobs/SubscriptionMail';
 import Queue from '../../lib/Queue';
-
-// import Mail from '../../lib/Mail';
 import Notification from '../schemas/Notification';
 
 class SubscriptionController {
@@ -141,20 +138,6 @@ class SubscriptionController {
       userSubName,
       userSubEmail,
     });
-
-    // Mail.sendMail({
-    //   to: `${meetapp.owner.name} <${meetapp.owner.email}>`,
-    //   subject: `${user.name} signed up for your Meetapp ${title}!`,
-    //   template: 'subscription',
-    //   context: {
-    //     ownerName: meetapp.owner.name,
-    //     meetappTitle: title,
-    //     meetappDate: format(date, "MMMM dd', at' H'h'"),
-    //     sendDate: format(new Date(), "MMMM dd', at' H'h'"),
-    //     userSubName,
-    //     userSubEmail,
-    //   },
-    // });
 
     return res.status(200).json({
       title,
