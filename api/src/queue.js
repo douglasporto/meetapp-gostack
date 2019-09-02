@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import './bootstrap';
 
 import Queue from './lib/Queue';
 
