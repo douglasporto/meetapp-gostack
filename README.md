@@ -121,6 +121,9 @@ $ docker run --name database_meetapp -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=
 # Created Mongo Docker container
 $ docker run --name mongo_bmstarter -p 27017:27017 -d -t mongo
 
+# Created Redis Docker container
+$ docker run --name redismeetapp -p 6379:6379 -d -t redis:alpine
+
 # Run Migrates
 $ yarn migrate
 

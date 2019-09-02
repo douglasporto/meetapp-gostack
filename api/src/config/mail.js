@@ -7,6 +7,6 @@ export default {
     pass: '23afbaf5139047',
   },
   default: {
-    from: 'Equipe MeetApp <noreply@meetapp.com>',
+    from: 'Team MeetApp <noreply@meetapp.com>',
   },
 };
